@@ -124,7 +124,11 @@ function localFallbackReply(question) {
 
     // 0) Greetings — plain "hi"/"hello" shouldn't fall through to the
     //    "not sure" message.
-    if (/^(hi|hello|hey|salam|assalam|asalam|slam|slm|aoa|asa)\b/.test(q)) {
+    if (/^(salam|assalam|asalam|slam|slm|aoa|asa)\b/.test(q)) {
+        return { text: "Wa Alaikum Assalam! We can have a general conversation, or I can help with Corvit courses, timetables, fees, trainers and admissions. What would you like to talk about?" };
+    }
+
+    if (/^(hi|hello|hey)\b/.test(q)) {
         return { text: "Hi! We can have a general conversation, or I can help with Corvit courses, timetables, fees, trainers and admissions. What would you like to talk about?" };
     }
 
