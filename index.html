@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corvit Systems — Reaching End to End</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="logo-mark">
+            <span class="roof"></span>
+            <div class="logo-text">
+                <span class="wordmark">CORVIT</span>
+                <span class="tagline">Reaching end to end</span>
+            </div>
+        </div>
+        <nav class="site-nav">
+            <a href="#courses">Courses</a>
+            <a href="#timetable">Timetable</a>
+            <a href="#admissions">Admissions</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-photo">
+            <img src="assets/hero-bg.jpg" alt="Corvit reception desk" class="hero-bg-img">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-topline">
+                <p class="hero-eyebrow">Find your course. Get every answer. No waiting at the desk.</p>
+                <p class="hero-eyebrow-sub">Ask the Corvit assistant about courses, fees, timetables or admissions — it
+                    searches our full program catalog and tells you exactly what fits.</p>
+            </div>
+
+            <button class="hero-launcher launch-chat" aria-label="Open Corvit AI Support">
+                <span class="launcher-glow"></span>
+            </button>
+        </section>
+
+        <div class="hero-cta-row">
+            <button class="hero-cta launch-chat" id="heroCta">Ask the assistant</button>
+        </div>
+
+        <section class="info-strip" id="courses">
+            <div class="info-card">
+                <h3>150+ Courses</h3>
+                <p>Cisco, Huawei, Microsoft, Red Hat and more, across networking, security and cloud.</p>
+            </div>
+            <div class="info-card">
+                <h3>Flexible Timetables</h3>
+                <p>Morning, evening and weekend batches across all campuses.</p>
+            </div>
+            <div class="info-card">
+                <h3>Certified Trainers</h3>
+                <p>Vendor-certified instructors with real deployment experience.</p>
+            </div>
+        </section>
+    </main>
+
+    <section class="chat-panel" id="chatPanel" aria-hidden="true">
+        <header class="chat-panel-header">
+            <div class="chat-panel-identity">
+                <span class="chat-avatar">
+                    <img src="assets/bot-icon.png" alt="Corvit AI assistant">
+                </span>
+                <div>
+                    <p class="chat-title">Corvit AI Support</p>
+                    <p class="chat-status"><span class="status-dot"></span>Online</p>
+                </div>
+            </div>
+            <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+        </header>
+
+        <div class="chat-thread" id="chatThread">
+            <div class="msg msg-bot">
+                Hi, I'm the Corvit assistant. I can help you pick a course or answer questions about timetables, fees
+                and admissions. What are you looking for?
+            </div>
+            <div class="quick-replies" id="quickReplies">
+                <button class="chip" data-prompt="Recommend a course for me">Recommend a course</button>
+                <button class="chip" data-prompt="Show me the timetable and fees">Timetable &amp; fees</button>
+            </div>
+        </div>
+
+        <form class="chat-input-row" id="chatForm">
+            <input type="text" id="chatInput" placeholder="Type your question…" autocomplete="off">
+            <button type="submit" class="chat-send" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12L20 4L13 20L11 13L4 12Z" stroke="currentColor" stroke-width="2"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </form>
+    </section>
+
+    <script src="config.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
