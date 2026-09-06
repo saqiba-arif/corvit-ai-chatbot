@@ -1,0 +1,12 @@
+~/workspace$ git status
+On branch main
+nothing to commit, working tree clean
+~/workspace$ git add index.html style.css script.js config.js app.py corvit_data.py data.js requirements.txt assets/hero-bg.jpg assets/bot-icon.png
+~/workspace$ git commit -m "Update Corvit chatbot"
+On branch main
+nothing to commit, working tree clean
+~/workspace$ git push origin main
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the
