@@ -125,7 +125,13 @@ function localFallbackReply(question) {
     // 0) Greetings — plain "hi"/"hello" shouldn't fall through to the
     //    "not sure" message.
     if (/^(hi|hello|hey|salam|assalam|asalam|slam|aoa|asa)\b/.test(q)) {
-        return { text: "Hi! I can help you pick a course or answer questions about timetables, fees, trainers and admissions. What are you looking for?" };
+        return { text: "Hi! We can have a general conversation, or I can help with Corvit courses, timetables, fees, trainers and admissions. What would you like to talk about?" };
+    }
+
+    // Keep the interface useful for basic conversation when the backend key
+    // has not been configured yet. The live backend handles open-ended chat.
+    if (/how are you|what can you do|general conversation|who are you/.test(q)) {
+        return { text: "I'm Corvit's AI assistant. I can chat about general topics and technology, or help with Corvit courses, timetables, fees, trainers and admissions. Ask me anything to get started." };
     }
 
     // 1) Timetable / schedule questions — try to answer for the SPECIFIC

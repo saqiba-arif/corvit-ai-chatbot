@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 from corvit_data import build_context_block
@@ -25,8 +25,12 @@ CORVIT_CONTEXT = build_context_block()
 SYSTEM_PROMPT = f"""You are the Corvit Institute Rawalpindi admissions assistant — friendly,
 helpful, and conversational, like a knowledgeable front-desk staff member.
 
-You can hold normal, general conversation (greetings, small talk, general
-career or tech questions) naturally, the way any helpful assistant would.
+You have two jobs:
+1. Hold normal general conversations naturally, including greetings, small talk,
+   everyday questions, career guidance, and general technology questions. Do not
+   force a Corvit-related answer when the user is asking something general.
+2. Help users with Corvit Institute questions about courses, timetables, trainers,
+   fees, admissions, and campus facilities.
 
 Whenever a question touches on Corvit's own courses, timetable, trainers,
 fees, admissions, or campus facilities, you MUST answer only using the
@@ -40,7 +44,34 @@ suggest they confirm with the campus directly, instead of making something up.
 === END OF VERIFIED DATA ===
 
 Keep answers concise and conversational — a few sentences, not long essays,
-unless the person asks for detail."""
+unless the person asks for detail. If a question mixes general advice with a
+Corvit-specific fact, answer the general part normally and use only the
+verified data for the Corvit-specific part."""
+
+
+@app.get("/")
+def index():
+    """Serve the chatbot UI from the same origin as the API."""
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), "index.html")
+
+
+@app.get("/<path:filename>")
+def public_file(filename):
+    """Serve only the frontend files that are intended to be public."""
+    allowed_files = {"style.css", "script.js", "config.js", "data.js"}
+    if filename in allowed_files or filename.startswith("assets/"):
+        return send_from_directory(os.path.dirname(os.path.abspath(__file__)), filename)
+    return jsonify({"error": "Not found"}), 404
+
+
+@app.get("/api/health")
+def health():
+    return jsonify({"ok": True, "ai_configured": bool(GROQ_API_KEY)})
+
+
+@app.get("/favicon.ico")
+def favicon():
+    return "", 204
 
 
 @app.route("/api/chat", methods=["POST"])
@@ -48,8 +79,11 @@ def chat():
     if not GROQ_API_KEY:
         return jsonify({"reply": "Server is missing its API key configuration."}), 500
 
-    user_msg = request.json.get("message", "")
-    history = request.json.get("history", [])  # optional: [{role, content}, ...]
+    payload = request.get_json(silent=True) or {}
+    user_msg = str(payload.get("message", "")).strip()
+    history = payload.get("history", [])  # optional: [{role, content}, ...]
+    if not isinstance(history, list):
+        history = []
     if not user_msg:
         return jsonify({"reply": "Please type a question."}), 400
 
@@ -76,4 +110,8 @@ def chat():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "5000")),
+        debug=False,
+    )

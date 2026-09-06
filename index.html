@@ -31,7 +31,7 @@
 
     <main>
         <section class="hero hero-photo">
-            <img src="assets/hero-bg.jpg" alt="Corvit reception desk" class="hero-bg-img">
+            <div class="hero-bg-art" aria-hidden="true"></div>
             <div class="hero-overlay"></div>
 
             <div class="hero-topline">
@@ -69,7 +69,7 @@
         <header class="chat-panel-header">
             <div class="chat-panel-identity">
                 <span class="chat-avatar">
-                    <img src="assets/bot-icon.png" alt="Corvit AI assistant">
+                    <span aria-hidden="true">AI</span>
                 </span>
                 <div>
                     <p class="chat-title">Corvit AI Support</p>
@@ -81,10 +81,12 @@
 
         <div class="chat-thread" id="chatThread">
             <div class="msg msg-bot">
-                Hi, I'm the Corvit assistant. I can help you pick a course or answer questions about timetables, fees
-                and admissions. What are you looking for?
+                Hi, I'm the Corvit assistant. We can chat generally, or I can help
+                with Corvit courses, timetables, fees and admissions. What would
+                you like to talk about?
             </div>
             <div class="quick-replies" id="quickReplies">
+                <button class="chip" data-prompt="Let's have a general conversation">General conversation</button>
                 <button class="chip" data-prompt="Recommend a course for me">Recommend a course</button>
                 <button class="chip" data-prompt="Show me the timetable and fees">Timetable &amp; fees</button>
             </div>

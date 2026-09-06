@@ -6,7 +6,8 @@
 // =================================================================
 
 window.CORVIT_CONFIG = {
-    // Point this at YOUR backend (app.py), not directly at Groq/OpenAI.
-    // Your backend holds the real API key and forwards the request.
-    apiEndpoint: "https://your-backend-domain.example.com/api/chat"
+    // The Flask app serves both this page and the API. Keeping this relative
+    // means it works in Replit preview, local development, and deployment.
+    // The Groq key stays server-side in Replit Secrets.
+    apiEndpoint: "/api/chat"
 };
