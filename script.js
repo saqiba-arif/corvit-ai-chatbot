@@ -194,12 +194,17 @@ function localFallbackReply(question) {
         return { text: "I don't have exact fee figures loaded yet — please confirm with the admissions desk at our campus, and I'll be able to quote them directly once that data is added." };
     }
 
-    // 7) Admissions.
+    // 7) Campus location.
+    if (/location|address|where.*(corvit|campus)|how to reach|directions|find.*(corvit|campus)/.test(q) && data.campus) {
+        return { text: `Corvit Rawalpindi is located at: ${data.campus}` };
+    }
+
+    // 8) Admissions.
     if (/admission|apply|enroll|register/.test(q)) {
         return { text: `You can visit our campus at ${data.campus || 'the Corvit Rawalpindi campus'} to apply, or let me know which track you want and I'll point you to the enrollment steps.` };
     }
 
-    // 8) Fallback model — last resort, never invents facts.
+    // 9) Fallback model — last resort, never invents facts.
     return {
         text: "I'm not fully sure about that one yet — please check corvit.com or visit our campus, and I'll keep learning to answer this directly next time."
     };
